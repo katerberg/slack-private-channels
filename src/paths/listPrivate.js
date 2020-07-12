@@ -26,14 +26,25 @@ module.exports = path => server => server.post(path, listPrivate);
 
 function listPrivate(req, res) {
   try {
-    const privateChannelsData = require('../../private-channels.json');
+    // const privateChannelsData = require('../../private-channels.json');
     console.log('listPrivate called'); //eslint-disable-line no-console
     const options = {
       method: 'POST',
       uri: req.body.response_url,
       body: {
-        text: JSON.stringify(privateChannelsData),
+        title: `#${chan.name}`,
+        text: chan.description,
+        mrkdwn: true,
+        // callback_id: 'join-private',
+        actions: [{
+          name: 'join',
+          text: 'Join',
+          type: 'button',
+          value: chan.id,
+        }],
       },
+      // text: JSON.stringify(privateChannelsData),
+      // },
       json: true, // Automatically stringifies the body to JSON
     };
 
@@ -48,18 +59,7 @@ function listPrivate(req, res) {
       description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
     };
 
-    res.send(200, {
-      title: `#${chan.name}`,
-      text: chan.description,
-      mrkdwn: true,
-      // callback_id: 'join-private',
-      actions: [{
-        name: 'join',
-        text: 'Join',
-        type: 'button',
-        value: chan.id,
-      }],
-    });
+    res.send(200);
   } catch (e) {
     console.error(e); //eslint-disable-line no-console
     res.send(500, `${e}`);
