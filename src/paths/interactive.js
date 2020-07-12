@@ -1,8 +1,11 @@
 'use strict';
 
+const request = require('request-promise-native');
+const Slack = require('slack');
+
 module.exports = path => server => server.post(path, interactive);
 
-// const credentials = require('../../credentials.json');
+const credentials = require('../../credentials.json');
 
 
 //  Example request
@@ -24,6 +27,31 @@ module.exports = path => server => server.post(path, interactive);
 
 function interactive(req, res) {
   try {
+    // credentials.TOKEN;
+    const bot = new Slack({token: credentials.TOKEN});
+    bot.api.test({}).then(r => console.log('worked', r));
+    // chat.postMessageAsync({
+    //   token: TOKEN,
+    //   channel: channel.id,
+    //   text: `Invite request from <@${argv.user_id}>! Use \`/invite <@${argv.user_id}>\` to accept (anyone here can do this)!`,
+    // }).then(() => ({
+    //   text: `Join request sent. Please wait while the request is processed.\n\nRemember that private channels are not for allies unless otherwise specified and that there is a strong expectation of privacy in these channels -- what is said in there stays there.\n\nThe ${cocTxt} still fully applies in these spaces, with some channel-specific caveats (discussion of sexuality in lgbtq channels, for example).`,
+    // }));
+    const options = {
+      method: 'POST',
+      uri: req.body.response_url,
+      body: {
+      },
+      json: true,
+    };
+
+    request(options).then(res => {
+      console.log('response from respones'); //eslint-disable-line no-console
+      console.log(res); //eslint-disable-line no-console
+    }, (e) => {
+      console.log('error from response'); //eslint-disable-line no-console
+      console.error(e); //eslint-disable-line no-console
+    });
     console.log('interactive happened'); //eslint-disable-line no-console
     res.send(200);
   } catch (e) {
