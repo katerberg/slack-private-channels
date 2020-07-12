@@ -26,13 +26,13 @@ module.exports = path => server => server.post(path, listPrivate);
 
 function listPrivate(req, res) {
   try {
+    const privateChannelsData = require('../../private-channels.json');
     console.log('listPrivate called'); //eslint-disable-line no-console
-    console.log(req); //eslint-disable-line no-console
     const options = {
       method: 'POST',
       uri: req.body.response_url,
       body: {
-        text: 'Thanks for your request, we\'ll process it and get back to you.',
+        text: privateChannelsData,
       },
       json: true, // Automatically stringifies the body to JSON
     };
@@ -40,9 +40,11 @@ function listPrivate(req, res) {
     request(options).then(res => {
       console.log('response from respones'); //eslint-disable-line no-console
       console.log(res); //eslint-disable-line no-console
+    }, () => {
+      console.log('error from response'); //eslint-disable-line no-console
     });
 
-    res.send(200, {});
+    res.send(200, privateChannelsData);
   } catch (e) {
     console.error(e); //eslint-disable-line no-console
     res.send(500, `${e}`);
