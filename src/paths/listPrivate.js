@@ -32,7 +32,7 @@ function listPrivate(req, res) {
       method: 'POST',
       uri: req.body.response_url,
       body: {
-        text: privateChannelsData,
+        text: JSON.stringify(privateChannelsData),
       },
       json: true, // Automatically stringifies the body to JSON
     };
