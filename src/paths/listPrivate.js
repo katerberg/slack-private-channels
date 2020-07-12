@@ -37,15 +37,30 @@ function listPrivate(req, res) {
       method: 'POST',
       uri: req.body.response_url,
       body: {
-        title: `#${chan.name}`,
-        text: chan.description,
-        mrkdwn: true,
-        // callback_id: 'join-private',
-        actions: [{
-          name: 'join',
-          text: 'Join',
-          type: 'button',
-          value: chan.id,
+        text: 'Unable to show private channels',
+        blocks: [{
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `#${chan.name}`,
+          },
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `${chan.description}`,
+          },
+        },
+        {
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Join',
+            },
+            value: 'view_alternate_1',
+          },
         }],
       },
       // text: JSON.stringify(privateChannelsData),
