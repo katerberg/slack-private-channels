@@ -42,7 +42,7 @@ function listPrivate(req, res) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `#${chan.name}`,
+            text: `*#${chan.name}*`,
           },
         },
         {
@@ -52,16 +52,17 @@ function listPrivate(req, res) {
             text: `${chan.description}`,
           },
         },
-        {
-          accessory: {
-            type: 'button',
-            text: {
-              type: 'plain_text',
-              text: 'Join',
-            },
-            value: 'view_alternate_1',
-          },
-        }],
+        // {
+        //   accessory: {
+        //     type: 'button',
+        //     text: {
+        //       type: 'plain_text',
+        //       text: 'Join',
+        //     },
+        //     value: 'view_alternate_1',
+        //   },
+        // }
+        ],
       },
       // text: JSON.stringify(privateChannelsData),
       // },
@@ -71,8 +72,9 @@ function listPrivate(req, res) {
     request(options).then(res => {
       console.log('response from respones'); //eslint-disable-line no-console
       console.log(res); //eslint-disable-line no-console
-    }, () => {
+    }, (e) => {
       console.log('error from response'); //eslint-disable-line no-console
+      console.error(e); //eslint-disable-line no-console
     });
 
     res.send(200);
