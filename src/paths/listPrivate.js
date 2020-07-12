@@ -25,21 +25,26 @@ module.exports = path => server => server.post(path, listPrivate);
 // const {TOKEN} = credentials;
 
 function listPrivate(req, res) {
-  console.log('listPrivate called'); //eslint-disable-line no-console
-  console.log(req); //eslint-disable-line no-console
-  const options = {
-    method: 'POST',
-    uri: req.body.response_url,
-    body: {
-      text: 'Thanks for your request, we\'ll process it and get back to you.',
-    },
-    json: true, // Automatically stringifies the body to JSON
-  };
+  try {
+    console.log('listPrivate called'); //eslint-disable-line no-console
+    console.log(req); //eslint-disable-line no-console
+    const options = {
+      method: 'POST',
+      uri: req.body.response_url,
+      body: {
+        text: 'Thanks for your request, we\'ll process it and get back to you.',
+      },
+      json: true, // Automatically stringifies the body to JSON
+    };
 
-  request(options).then(res => {
-    console.log('response from respones'); //eslint-disable-line no-console
-    console.log(res); //eslint-disable-line no-console
-  });
+    request(options).then(res => {
+      console.log('response from respones'); //eslint-disable-line no-console
+      console.log(res); //eslint-disable-line no-console
+    });
 
-  res.status(200).json({});
+    res.send(200, {});
+  } catch (e) {
+    console.error(e); //eslint-disable-line no-console
+    res.send(500, `${e}`);
+  }
 }

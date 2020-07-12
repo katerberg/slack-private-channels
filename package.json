@@ -8,6 +8,8 @@
     "lint": "eslint \"src/**/*.js\""
   },
   "dependencies": {
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8",
     "restify": "^8.5.1",
     "slack": "^11.0.2"
   },
