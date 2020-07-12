@@ -42,26 +42,17 @@ function listPrivate(req, res) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*#${chan.name}*`,
+            text: `*#${chan.name}*\n${chan.description}`,
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Join',
+            },
+            value: 'view_alternate_1',
           },
         },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `${chan.description}`,
-          },
-        },
-        // {
-        //   accessory: {
-        //     type: 'button',
-        //     text: {
-        //       type: 'plain_text',
-        //       text: 'Join',
-        //     },
-        //     value: 'view_alternate_1',
-        //   },
-        // }
         ],
       },
       // text: JSON.stringify(privateChannelsData),
