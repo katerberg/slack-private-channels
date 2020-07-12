@@ -26,13 +26,13 @@ module.exports = path => server => server.post(path, listPrivate);
 
 function listPrivate(req, res) {
   try {
-    // const privateChannelsData = require('../../private-channels.json');
+    const privateChannelsData = require('../../private-channels.json');
     console.log('listPrivate called'); //eslint-disable-line no-console
-    const chan = {
-      id: '12345',
-      name: 'private-ta',
-      description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
-    };
+    // const chan = {
+    //   id: '12345',
+    //   name: 'private-ta',
+    //   description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
+    // };
     const options = {
       method: 'POST',
       uri: req.body.response_url,
@@ -42,13 +42,13 @@ function listPrivate(req, res) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: 'These channels are private to disallow previewing (view without join). Available private channels: ',
+            text: 'These channels are private to disallow previewing (view without join).\n\n Available private channels: ',
           },
         },
         {
           type: 'divider',
         },
-        {
+        ...privateChannelsData.map(chan => ({
           type: 'section',
           text: {
             type: 'mrkdwn',
@@ -62,7 +62,7 @@ function listPrivate(req, res) {
             },
             value: 'view_alternate_1',
           },
-        },
+        })),
         ],
       },
       // text: JSON.stringify(privateChannelsData),
