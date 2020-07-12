@@ -1,0 +1,17 @@
+{
+  "name": "private-channels-bot",
+  "version": "0.0.1",
+  "description": "Bot to handle the creation and management of Slack private channels",
+  "main": "index.js",
+  "license": "CC0-1.0",
+  "scripts": {
+    "lint": "eslint \"src/**/*.js\""
+  },
+  "dependencies": {
+    "restify": "^8.5.1",
+    "slack": "^11.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0"
+  }
+}
