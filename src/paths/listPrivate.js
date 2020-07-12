@@ -43,8 +43,23 @@ function listPrivate(req, res) {
     }, () => {
       console.log('error from response'); //eslint-disable-line no-console
     });
+    const chan = {
+      name: 'private-ta',
+      description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
+    };
 
-    res.send(200, privateChannelsData);
+    res.send(200, {
+      title: `#${chan.name}`,
+      text: chan.description,
+      mrkdwn: true,
+      // callback_id: 'join-private',
+      actions: [{
+        name: 'join',
+        text: 'Join',
+        type: 'button',
+        value: chan.id,
+      }],
+    });
   } catch (e) {
     console.error(e); //eslint-disable-line no-console
     res.send(500, `${e}`);
