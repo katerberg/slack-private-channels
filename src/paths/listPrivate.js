@@ -42,6 +42,16 @@ function listPrivate(req, res) {
           type: 'section',
           text: {
             type: 'mrkdwn',
+            text: 'These channels are private to disallow previewing (view without join). Available private channels: ',
+          },
+        },
+        {
+          type: 'divider',
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
             text: `*#${chan.name}*\n${chan.description}`,
           },
           accessory: {
