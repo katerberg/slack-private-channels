@@ -35,8 +35,10 @@
  #if ($countEquals == 1)
   #set($kvTokenised = $kvPair.split("="))
   #if ($kvTokenised[0].length() > 0)
-   ## we found a valid key value pair. add it to the list.
-   #set($devNull = $tokenisedEquals.add($kvPair))
+   #if ($kvTokenised.size() >= 2)
+    ## we found a valid key value pair. add it to the list.
+    #set($devNull = $tokenisedEquals.add($kvPair))
+   #end
   #end
  #end
 #end
