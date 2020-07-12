@@ -28,6 +28,11 @@ function listPrivate(req, res) {
   try {
     // const privateChannelsData = require('../../private-channels.json');
     console.log('listPrivate called'); //eslint-disable-line no-console
+    const chan = {
+      id: '12345',
+      name: 'private-ta',
+      description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
+    };
     const options = {
       method: 'POST',
       uri: req.body.response_url,
@@ -54,10 +59,6 @@ function listPrivate(req, res) {
     }, () => {
       console.log('error from response'); //eslint-disable-line no-console
     });
-    const chan = {
-      name: 'private-ta',
-      description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
-    };
 
     res.send(200);
   } catch (e) {
