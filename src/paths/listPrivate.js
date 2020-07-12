@@ -50,20 +50,21 @@ function listPrivate(req, res) {
         },
         ...Object.keys(privateChannelsData.channels).map(chanKey => {
           const chan = privateChannelsData.channels[chanKey];
+          const accessory = chan.accessible ? {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Join',
+            },
+            value: 'view_alternate_1',
+          } : undefined;
           return {
             type: 'section',
             text: {
               type: 'mrkdwn',
               text: `*#${chanKey}*\n${chan.description}`,
             },
-            accessory: {
-              type: 'button',
-              text: {
-                type: 'plain_text',
-                text: 'Join',
-              },
-              value: 'view_alternate_1',
-            },
+            accessory,
           };
         }),
         ],
