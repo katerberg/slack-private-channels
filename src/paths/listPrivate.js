@@ -48,21 +48,24 @@ function listPrivate(req, res) {
         {
           type: 'divider',
         },
-        ...privateChannelsData.map(chan => ({
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `*#${chan.name}*\n${chan.description}`,
-          },
-          accessory: {
-            type: 'button',
+        ...Object.keys(privateChannelsData.channels).map(chanKey => {
+          const chan = privateChannelsData.channels[chanKey];
+          return {
+            type: 'section',
             text: {
-              type: 'plain_text',
-              text: 'Join',
+              type: 'mrkdwn',
+              text: `*#${chanKey}*\n${chan.description}`,
             },
-            value: 'view_alternate_1',
-          },
-        })),
+            accessory: {
+              type: 'button',
+              text: {
+                type: 'plain_text',
+                text: 'Join',
+              },
+              value: 'view_alternate_1',
+            },
+          };
+        }),
         ],
       },
       // text: JSON.stringify(privateChannelsData),
