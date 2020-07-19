@@ -33,8 +33,8 @@ function interactive(req, res) {
     console.log(parsed.actions[0].value);
     const channelToJoin = parsed.actions[0].value;
     const bot = new Slack({token: credentials.TOKEN});
-    console.log(bot.api);
-    bot.api.chat.postMessage({
+    console.log(bot);
+    bot.chat.postMessage({
       channel: channelToJoin,
       text: `Invite request from <@${parsed.user.id}>! Use \`/invite <@${parsed.user.id}>\` to accept (anyone here can do this)!`,
     }).then(() => {
