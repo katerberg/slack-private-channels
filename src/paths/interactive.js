@@ -47,8 +47,13 @@ This is not an excuse to be the kind of person your mother would be ashamed of.
         console.error(e); //eslint-disable-line no-console
       });
     }).catch(e => {
-      if (e.name === 'Error: channel_not_found') {
-        console.log('channel not found error'); //eslint-disable-line no-console
+      if (e.message === 'channel_not_found') {
+        console.warn('channel not found error'); //eslint-disable-line no-console
+        console.log(parsed); //eslint-disable-line no-console
+        bot.chat.postMessage({
+          channel: credentials.SLACK_ADMINS,
+          text: `Invite request to join <@${parsed.actions[0].value}> failed. Please verify that I am in that channel and investigate my setup if I am.`,
+        });
       } else {
         throw e;
       }
