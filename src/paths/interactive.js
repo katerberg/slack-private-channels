@@ -27,11 +27,16 @@ const credentials = require('../../credentials.json');
 
 function interactive(req, res) {
   try {
+    console.log('interacting');
+    const parsed = JSON.parse(req.body.payload);
+    console.log(parsed);
+    console.log(parsed.actions[0].value);
+    const channelToJoin = parsed.actions[0].value;
     // credentials.TOKEN;
     const bot = new Slack({token: credentials.TOKEN});
     bot.api.postMessage({
-      channel: channel.id,
-      text: `Invite request from <@${argv.user_id}>! Use \`/invite <@${argv.user_id}>\` to accept (anyone here can do this)!`,
+      channel: channelToJoin,
+      text: `Invite request from <@${parsed.user.id}>! Use \`/invite <@${parsed.user.id}>\` to accept (anyone here can do this)!`,
     }).then(() => {
       // chat.postMessageAsync({
       //   token: TOKEN,

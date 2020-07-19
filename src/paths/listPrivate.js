@@ -51,7 +51,7 @@ function listPrivate(req, res) {
               type: 'plain_text',
               text: 'Join',
             },
-            value: chanKey,
+            value: chan.id,
           } : undefined;
           return {
             type: 'section',
