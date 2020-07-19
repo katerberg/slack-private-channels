@@ -28,11 +28,6 @@ function listPrivate(req, res) {
   try {
     const privateChannelsData = require('../../private-channels.json');
     console.log('listPrivate called'); //eslint-disable-line no-console
-    // const chan = {
-    //   id: '12345',
-    //   name: 'private-ta',
-    //   description: 'Room for discussing potential hires, including salary information, and open critical analysis of people who might come into the space.',
-    // };
     const options = {
       method: 'POST',
       uri: req.body.response_url,
@@ -69,9 +64,7 @@ function listPrivate(req, res) {
         }),
         ],
       },
-      // text: JSON.stringify(privateChannelsData),
-      // },
-      json: true, // Automatically stringifies the body to JSON
+      json: true,
     };
 
     request(options).then(res => {

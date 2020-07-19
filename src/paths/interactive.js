@@ -29,15 +29,26 @@ function interactive(req, res) {
   try {
     // credentials.TOKEN;
     const bot = new Slack({token: credentials.TOKEN});
-    return bot.api.test({}).then(r => {
-      console.log('worked', r);
+    bot.api.postMessage({
+      channel: channel.id,
+      text: `Invite request from <@${argv.user_id}>! Use \`/invite <@${argv.user_id}>\` to accept (anyone here can do this)!`,
+    }).then(() => {
       // chat.postMessageAsync({
       //   token: TOKEN,
       //   channel: channel.id,
       //   text: `Invite request from <@${argv.user_id}>! Use \`/invite <@${argv.user_id}>\` to accept (anyone here can do this)!`,
       // }).then(() => ({
-      res.send(200, {
-        text: 'Join request sent. Please wait while the request is processed.\n\nRemember that private channels are not for allies unless otherwise specified and that there is a strong expectation of privacy in these channels -- what is said in there stays there.\n\n This is not an excuse to be the kind of person your mother would be ashamed of.',
+      bot.api.postMessage({
+        channel: 'FGJF655GG',
+        text: `
+Join request sent. Please wait while the request is processed.
+
+Remember that private channels are for the stated audience unless otherwise specified and that there is a strong expectation of privacy in these channels.
+
+What is said in there stays there.
+
+This is not an excuse to be the kind of person your mother would be ashamed of.
+`,
       });
     });
     // const options = {
@@ -56,7 +67,7 @@ function interactive(req, res) {
     //   console.error(e); //eslint-disable-line no-console
     // });
     // console.log('interactive happened'); //eslint-disable-line no-console
-    // res.send(200);
+    res.send(200);
   } catch (e) {
     console.error(e); //eslint-disable-line no-console
     res.send(500, `${e}`);
