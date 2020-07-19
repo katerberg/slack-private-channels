@@ -27,23 +27,13 @@ const credentials = require('../../credentials.json');
 
 function interactive(req, res) {
   try {
-    console.log('interacting');
     const parsed = JSON.parse(req.body.payload);
-    console.log(parsed);
-    console.log(parsed.actions[0].value);
     const channelToJoin = parsed.actions[0].value;
     const bot = new Slack({token: credentials.TOKEN});
-    console.log(bot);
     bot.chat.postMessage({
       channel: channelToJoin,
       text: `Invite request from <@${parsed.user.id}>! Use \`/invite <@${parsed.user.id}>\` to accept (anyone here can do this)!`,
     }).then(() => {
-      // chat.postMessageAsync({
-      //   token: TOKEN,
-      //   channel: channel.id,
-      //   text: `Invite request from <@${argv.user_id}>! Use \`/invite <@${argv.user_id}>\` to accept (anyone here can do this)!`,
-      // }).then(() => ({
-
       const options = {
         method: 'POST',
         uri: parsed.response_url,
@@ -74,38 +64,12 @@ This is not an excuse to be the kind of person your mother would be ashamed of.
         console.log('error from join message response'); //eslint-disable-line no-console
         console.error(e); //eslint-disable-line no-console
       });
-      //       bot.api.chat.postMessage({
-      //         channel: 'FGJF655GG',
-      //         text: `
-      // Join request sent. Please wait while the request is processed.
-      //
-      // Remember that private channels are for the stated audience unless otherwise specified and that there is a strong expectation of privacy in these channels.
-      //
-      // What is said in there stays there.
-      //
-      // This is not an excuse to be the kind of person your mother would be ashamed of.
-      // `,
-      //       });
     });
-    // const options = {
-    //   method: 'POST',
-    //   uri: req.body.response_url,
-    //   body: {
-    //   },
-    //   json: true,
-    // };
-    //
-    // request(options).then(res => {
-    //   console.log('response from respones'); //eslint-disable-line no-console
-    //   console.log(res); //eslint-disable-line no-console
-    // }, (e) => {
-    //   console.log('error from response'); //eslint-disable-line no-console
-    //   console.error(e); //eslint-disable-line no-console
-    // });
-    // console.log('interactive happened'); //eslint-disable-line no-console
     res.send(200);
   } catch (e) {
+    console.error('BIG TIME UNHANDLED') //eslint-disable-line no-console
     console.error(e); //eslint-disable-line no-console
+    console.error(e.message); //eslint-disable-line no-console
     res.send(500, `${e}`);
   }
 }
