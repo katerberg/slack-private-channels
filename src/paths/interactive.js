@@ -52,7 +52,7 @@ This is not an excuse to be the kind of person your mother would be ashamed of.
         console.log(parsed); //eslint-disable-line no-console
         bot.chat.postMessage({
           channel: credentials.SLACK_ADMINS,
-          text: `Invite request to join <@${parsed.actions[0].value}> failed. Please verify that I am in that channel and investigate my setup if I am.`,
+          text: `Invite request to join <#${parsed.actions[0].value}> failed. Please verify that I am in that channel and investigate my setup if I am.`,
         });
       } else {
         throw e;
