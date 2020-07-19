@@ -32,7 +32,7 @@ function listPrivate(req, res) {
       method: 'POST',
       uri: req.body.response_url,
       body: {
-        text: 'Unable to show private channels',
+        text: 'Private Channels List',
         blocks: [{
           type: 'section',
           text: {

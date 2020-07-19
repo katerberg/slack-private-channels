@@ -32,9 +32,9 @@ function interactive(req, res) {
     console.log(parsed);
     console.log(parsed.actions[0].value);
     const channelToJoin = parsed.actions[0].value;
-    // credentials.TOKEN;
     const bot = new Slack({token: credentials.TOKEN});
-    bot.api.postMessage({
+    console.log(bot.api);
+    bot.api.chat.postMessage({
       channel: channelToJoin,
       text: `Invite request from <@${parsed.user.id}>! Use \`/invite <@${parsed.user.id}>\` to accept (anyone here can do this)!`,
     }).then(() => {
@@ -43,9 +43,17 @@ function interactive(req, res) {
       //   channel: channel.id,
       //   text: `Invite request from <@${argv.user_id}>! Use \`/invite <@${argv.user_id}>\` to accept (anyone here can do this)!`,
       // }).then(() => ({
-      bot.api.postMessage({
-        channel: 'FGJF655GG',
-        text: `
+
+      const options = {
+        method: 'POST',
+        uri: parsed.response_url,
+        body: {
+          text: 'Private Channels List',
+          blocks: [{
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: `
 Join request sent. Please wait while the request is processed.
 
 Remember that private channels are for the stated audience unless otherwise specified and that there is a strong expectation of privacy in these channels.
@@ -54,7 +62,30 @@ What is said in there stays there.
 
 This is not an excuse to be the kind of person your mother would be ashamed of.
 `,
+            },
+          }],
+        },
+        json: true,
+      };
+      request(options).then(res => {
+        console.log('response from join message response'); //eslint-disable-line no-console
+        console.log(res); //eslint-disable-line no-console
+      }, (e) => {
+        console.log('error from join message response'); //eslint-disable-line no-console
+        console.error(e); //eslint-disable-line no-console
       });
+      //       bot.api.chat.postMessage({
+      //         channel: 'FGJF655GG',
+      //         text: `
+      // Join request sent. Please wait while the request is processed.
+      //
+      // Remember that private channels are for the stated audience unless otherwise specified and that there is a strong expectation of privacy in these channels.
+      //
+      // What is said in there stays there.
+      //
+      // This is not an excuse to be the kind of person your mother would be ashamed of.
+      // `,
+      //       });
     });
     // const options = {
     //   method: 'POST',
